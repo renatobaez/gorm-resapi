@@ -1,0 +1,22 @@
+** main
+Todo esto está bien y funciona perfecto, pero está construido casi con un modelo MVC, y la idea que es implementemos una arquitectura limpia,
+sin las dependencias y acoplamientos que tiene esa arquitectura.
+
+** application
+los Services o casos de uso son para incorporar la lógica que va a hacer cada flujo. Pero no debieran combinarse con los controladores, que corresponden
+a otra capa (presentación o infraestructura)
+
+en la arquitectura hexagonal y cualquier otra arquitectura limpia, la única y correcta forma de comunicarse con las otras capas es a través de los puertos y adaptadores
+por lo que todas las capas (exceptuando la de presentación) tienen que tener interfaces y ser implementadas
+
+** domain
+Las clases u objetos que están en el dominio no debieran conocer nada de la lógica de la infraestructura por lo que no debiera haber relación con las tablas de las bases de datos
+
+** repository
+Se agregó un repository, que es el encargado de interactuar con la base de datos que está en la capa de infraestructura. El repository no debería intractuar con los objetos de dominio
+ya que eso es trabajo de los servicios, por lo que para poder insertar y obtener data se usa un patrón llamado DTO, que son las mismas estructuras (Casi siempre), que están
+modeladas solo para la interacción con la base de datos (y otros servicios de datos)
+
+** Se agrega una carpeta llamada models, que es donde están estructurados los objetos de DTO para interactuar con la base de datos, y así no romper el primer pincipio SOLID, que es el de
+la responsabilidad única, por lo que le quitamos la responsabilidad a un objeto de la capa de dominio, que no conoce nada de la infraestructura, a tener que ver con la estructura
+y composición de la base de datos, que es un servicio de la capa de infraestructura.
